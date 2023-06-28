@@ -9,7 +9,7 @@ public class Task implements Comparable<Task> {
     boolean isFinished;
     long finishedTime = 0;
 
-    public Task(int id, String name, int priority, long arriveTime, long cbt, long deadline) {
+    public Task(String name, int priority, long arriveTime, long cbt, long deadline) {
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -17,6 +17,46 @@ public class Task implements Comparable<Task> {
         this.cbt = cbt;
         this.deadline = deadline;
         this.remainingTime = cbt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getRemainingTime() {
+        return remainingTime;
+    }
+
+    public void setRemainingTime(long remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
+    }
+
+    public long getFinishedTime() {
+        return finishedTime;
+    }
+
+    public void setFinishedTime(long finishedTime) {
+        this.finishedTime = finishedTime;
     }
 
     public int getPriority() {

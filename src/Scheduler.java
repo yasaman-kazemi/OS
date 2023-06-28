@@ -1,11 +1,9 @@
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Scheduler {
     private final LinkedList<Task> tasks = new LinkedList<>();
     private LinkedList<Task> inProgressTasks = new LinkedList<>();
+    private ArrayList<Task> finalTasks = new ArrayList<>();
     private int currentTime;
 
     public void addTask(Task task) {
@@ -43,6 +41,7 @@ public class Scheduler {
             if (task == null) continue;
             if (task.deadline < currentTime) {
                 failedTasks.add(task);
+                finalTasks.add(task);
                 currentTime--;
             } else {
                 task.remainingTime--;
@@ -51,10 +50,39 @@ public class Scheduler {
                     task.finishedTime = currentTime;
                     System.out.println(task);
                     finishedTasks.add(task);
+                    finalTasks.add(task);
                 } else {
                     inProgressTasks.addFirst(task);
                 }
             }
         }
+    }
+
+    public LinkedList<Task> getTasks() {
+        return tasks;
+    }
+
+    public LinkedList<Task> getInProgressTasks() {
+        return inProgressTasks;
+    }
+
+    public void setInProgressTasks(LinkedList<Task> inProgressTasks) {
+        this.inProgressTasks = inProgressTasks;
+    }
+
+    public int getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(int currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    public ArrayList<Task> getFinalTasks() {
+        return finalTasks;
+    }
+
+    public void setFinalTasks(ArrayList<Task> finalTasks) {
+        this.finalTasks = finalTasks;
     }
 }
