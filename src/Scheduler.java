@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Scheduler {
     private final LinkedList<Task> tasks = new LinkedList<>();
-    private LinkedList<Task> inProgressTasks = new LinkedList<>();
-    private ArrayList<Task> finalTasks = new ArrayList<>();
+    private final LinkedList<Task> inProgressTasks = new LinkedList<>();
+    private final ArrayList<Task> finalTasks = new ArrayList<>();
     private int currentTime;
 
     public void addTask(Task task) {
@@ -32,15 +32,12 @@ public class Scheduler {
 
     public void process() {
         tasks.sort(Comparator.comparingLong(o -> o.arriveTime));
-        List<Task> finishedTasks = new LinkedList<>();
-        List<Task> failedTasks = new LinkedList<>();
         while (!(tasks.isEmpty() && inProgressTasks.isEmpty())) {
             updateInProgressTasks();
             Task task = inProgressTasks.poll();
             currentTime++;
             if (task == null) continue;
             if (task.deadline < currentTime) {
-                failedTasks.add(task);
                 finalTasks.add(task);
                 currentTime--;
             } else {
@@ -49,7 +46,6 @@ public class Scheduler {
                     task.isFinished = true;
                     task.finishedTime = currentTime;
                     System.out.println(task);
-                    finishedTasks.add(task);
                     finalTasks.add(task);
                 } else {
                     inProgressTasks.addFirst(task);
@@ -58,31 +54,7 @@ public class Scheduler {
         }
     }
 
-    public LinkedList<Task> getTasks() {
-        return tasks;
-    }
-
-    public LinkedList<Task> getInProgressTasks() {
-        return inProgressTasks;
-    }
-
-    public void setInProgressTasks(LinkedList<Task> inProgressTasks) {
-        this.inProgressTasks = inProgressTasks;
-    }
-
-    public int getCurrentTime() {
-        return currentTime;
-    }
-
-    public void setCurrentTime(int currentTime) {
-        this.currentTime = currentTime;
-    }
-
     public ArrayList<Task> getFinalTasks() {
         return finalTasks;
-    }
-
-    public void setFinalTasks(ArrayList<Task> finalTasks) {
-        this.finalTasks = finalTasks;
     }
 }
